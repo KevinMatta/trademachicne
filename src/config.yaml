@@ -1,0 +1,92 @@
+# Application Configuration
+app:
+  secret_key: dev-key-change-in-production
+  database_uri: sqlite:///finance.db
+  upload_folder: /tmp/uploads
+  max_content_length: 16777216  # 16MB
+
+# API Keys and Credentials
+apis:
+  openai:
+    api_key: ''  # Set in environment or replace with your key
+  binance:
+    api_key: ''  # Set in environment or replace with your key
+    api_secret: ''  # Set in environment or replace with your key
+    testnet: true  # Use testnet for development
+  twitter:
+    api_key: ''  # Set in environment or replace with your key
+    api_secret: ''  # Set in environment or replace with your key
+    bearer_token: ''  # Set in environment or replace with your key
+
+# Data Collection Settings
+data_collection:
+  symbols:
+    - BTCUSDT
+    - ETHUSDT
+    - BNBUSDT
+    - SOLUSDT
+  intervals:
+    - 1m
+    - 5m
+    - 15m
+    - 1h
+    - 4h
+    - 1d
+  indicators:
+    - name: SMA
+      params:
+        - 20
+        - 50
+        - 200
+    - name: RSI
+      params:
+        - 14
+    - name: MACD
+      params:
+        - 12
+        - 26
+        - 9
+
+# Analysis Settings
+analysis:
+  sentiment:
+    sources:
+      - twitter
+      - news
+    keywords:
+      - bitcoin
+      - crypto
+      - blockchain
+      - ethereum
+    model: text-davinci-003
+  forecasting:
+    model: lstm
+    lookback: 30
+    forecast_horizon: 5
+    features:
+      - close
+      - volume
+      - rsi
+      - macd
+
+# Trading Settings
+trading:
+  enabled: false  # Set to true to enable live trading
+  risk_per_trade: 0.01  # 1% of account balance
+  max_open_trades: 3
+  stop_loss_pct: 0.02  # 2% stop loss
+  take_profit_pct: 0.04  # 4% take profit
+
+# Scheduler Settings
+scheduler:
+  data_collection_interval: 300  # seconds
+  analysis_interval: 900  # seconds
+  trading_interval: 60  # seconds
+  monitoring_interval: 300  # seconds
+
+# Logging Settings
+logging:
+  level: INFO
+  file: logs/app.log
+  max_size: 10485760  # 10MB
+  backup_count: 5
